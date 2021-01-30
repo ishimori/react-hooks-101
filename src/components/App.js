@@ -7,7 +7,8 @@ import reducer from '../reducers' // index.jsは省略できる
 
 function App() {
   const initialState = {
-    events : []
+    events : [],
+    operationLogs : []
   }
   const [state, dispatch]  = useReducer(reducer,initialState)
 
