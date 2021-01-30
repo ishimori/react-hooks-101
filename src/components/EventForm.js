@@ -24,7 +24,7 @@ const EventForm = () => {
       dispatch({
           type:ADD_OPEATION_LOG,
           description : "イベントを作成しました",
-          createdAt   : timeCurrentIso8601
+          operatedAt  : timeCurrentIso8601()
       })
       setTitle('')
       setBody('')
@@ -37,7 +37,7 @@ const EventForm = () => {
           dispatch({ 
               type:DELETE_ALL_OPEATION_LOGS,
               description : "全てのログを削除しました",
-              createdAt   : timeCurrentIso8601
+              operatedAt  : timeCurrentIso8601()
             })
       }
     }
