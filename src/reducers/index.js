@@ -33,7 +33,8 @@ const events = (state = [], action) => {
 
             return [...state,{id, ...event}]    // idはショートハンド使ってる
         case 'DELETE_EVENT':
-            return state
+
+            return state.filter(event => event.id !== action.id)
         case 'DELETE_ALL_EVENTS':
             return []
         default:
