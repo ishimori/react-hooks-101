@@ -2,7 +2,8 @@ import React from 'react'
 const Event = ({dispatch, event}) => {
     const id = event.id // ショートハンド用
     const handleClickDeletedButton = () => {
-      dispatch({type:'DELETE_EVENT', id}) // ショートハンド使った
+        const result = window.confirm(`イベント(id=${id})を削除しても良いですか？`)
+        if (result) dispatch({type:'DELETE_EVENT', id}) // ショートハンド使った
     }
     return (
         <tr>

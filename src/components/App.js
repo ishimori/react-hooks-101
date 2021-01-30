@@ -17,6 +17,14 @@ function App() {
     setTitle('')
     setBody('')
   }
+  const deleteAllEvents = (e) => {
+    e.preventDefault()  // 画面描画を停止
+    const result = window.confirm('全てのイベントを削除しても良いですか？')
+    if (result) dispatch({ type:'DELETE_ALL_EVENTS'})
+  }
+  // ボタンのdisabled属性用
+  const unCreatable = title === '' || body === ''
+
   return (
     <div className="container-fluid">
       <h4>イベント作成フォーム</h4>
@@ -29,8 +37,8 @@ function App() {
           <label htmlFor="formEventBody">ボディ</label>
           <textarea className="form-control" id="formEventBody" value={body} onChange={e=>{setBody(e.target.value)}}></textarea>
         </div>
-        <button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>
-        <button className="btn btn-danger">全てのイベントを削除する</button>
+        <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>イベントを作成する</button>
+        <button className="btn btn-danger" onClick={deleteAllEvents} disabled={state.length === 0}>全てのイベントを削除する</button>
       </form>
       <hr />
       <h4>イベント一覧</h4>
