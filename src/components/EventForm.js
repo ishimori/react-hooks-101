@@ -1,9 +1,12 @@
 import React, {useContext,useState} from 'react'
 import {
     CREATE_EVENT,
-    DELETE_ALL_EVENTS
+    DELETE_ALL_EVENTS,
+    ADD_OPEATION_LOG,
+    DELETE_ALL_OPEATION_LOGS
 } from '../actions'
 import AppContext from '../contexts/AppContext'
+import { timeCurrentIso8601 } from '../utils'
 
 const EventForm = () => {
     const {state, dispatch} = useContext(AppContext)
@@ -17,13 +20,26 @@ const EventForm = () => {
         title,
         body
       })
+      // logを残す
+      dispatch({
+          type:ADD_OPEATION_LOG,
+          description : "イベントを作成しました",
+          createdAt   : timeCurrentIso8601
+      })
       setTitle('')
       setBody('')
     }
     const deleteAllEvents = (e) => {
       e.preventDefault()  // 画面描画を停止
       const result = window.confirm('全てのイベントを削除しても良いですか？')
-      if (result) dispatch({ type:DELETE_ALL_EVENTS})
+      if (result) {
+          dispatch({ type:DELETE_ALL_EVENTS})
+          dispatch({ 
+              type:DELETE_ALL_OPEATION_LOGS,
+              description : "全てのログを削除しました",
+              createdAt   : timeCurrentIso8601
+            })
+      }
     }
     // ボタンのdisabled属性用
     const unCreatable = title === '' || body === ''
